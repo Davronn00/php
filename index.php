@@ -27,6 +27,7 @@
         else{
             $seconds++;
             echo $seconds . "<br>";
+            echo $seconds--;
 
         }
     }
