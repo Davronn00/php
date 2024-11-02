@@ -1,34 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form action="index.php" method ="post" >
-    <input type = "button" name="Stop" value ="stop">
-    </form>
-</body>
-</html>
-
 <?php
-
-    $seconds = 0;
-    $running = true;
-    
-    
-    while($running){
-
-        if(isset($_POST["stop"])){
-
-            $running = false;
-        }
-        else{
-            $seconds++;
-            echo $seconds . "<br>";
-            echo $seconds--;
-
-        }
-    }
-?>
+/*$guys = array("Sherali", "Yuto", "Yhair", "Randita", "Davron");
+array_push($guys, "Suratjon", "Loic");
+array_shift($guys);
+array_pop($guys);
+$reversed_guys = array_reverse($guys);
+echo count($guys);
+foreach($guys as $guy){
+    echo $guy."<br>";}
+?>*/
