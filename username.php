@@ -10,14 +10,16 @@
     <label> Enter your username:</label> <br>
     <input type = "text" name = "username"><br>
     <label> Enter your password:</label><br>
-    <input type = "text" name = "Password"><br>
-    <input type = "submit" name="Login" value = "Log in"><br>
+    <input type = "text" name = "password"><br>
+    <input type = "submit" name="login" value = "Log in"><br>
 
     </form>
 </body>
 </html>
 <?php
-if($_POST["username"]){
+
+
+if(isset($_POST["login"])){
 
     $username = $_POST["username"];
     $password = $_POST["password"];
@@ -25,15 +27,12 @@ if($_POST["username"]){
     if(empty($username)){
         echo "enter the username";
     }
-    elseif(isset($username)){
-        echo "hello {$username}";
-    }
+    
     elseif(empty($password)){
-        echo "password should not be empty";
- 
+        echo "Password should not be empty";
     }
     else{
-        echo "Welcome";
+        echo "Welcome {$username}";
     }
     
     
