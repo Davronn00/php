@@ -1,5 +1,5 @@
 <?php
-   include("header.html")
+    include("header.html")
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +9,7 @@
     <title>Document</title>
 </head>
 <body>
-    This head page of the website
+    This is the about page  
 </body>
 </html>
 <?php
