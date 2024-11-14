@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guess'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><br>5-digit guessing game</title>
+    <title>5-digit guessing game</title>
 </head>
 <body>
     <h1><br>5-digit guessing game</h1>
