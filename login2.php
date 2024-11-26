@@ -1,11 +1,6 @@
 <?php
     session_start();
     include("database.php");
-
-    while($sql = "SELECT * FROM users");
-    $result = mysqli_query($conn, $sql);
-    
-    if (mysqli_num_rows($result))
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,18 +32,36 @@
             echo "Enter password!";
         }
         else{
-            $hash = password_hash($password, PASSWORD_DEFAULT);
-            $sql = "INSERT INTO users (user, password)
-                    VALUES ('$username','$hash')";
-            try{
+            
+            $sql = "INSERT INTO dgggdb (user, password)
+                    VALUES ('$username','$password')";
                 mysqli_query($conn, $sql);
                 echo "You're registered";
-                header("Location: game.php"); 
-            }
-            catch(mysqli_sql_exception){
-                echo "That username is taken";
-            }
+            
         }
         mysqli_close($conn);
     }
+?>
+<?php
+// Database connection
+$sql = mysqli_connect("localhost", "root", 
+"", "dgggdb"); // Replace with your credentials
+if (!$sql) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Insert query
+$username = 'test_user'; // Replace with user input
+$password = 'test_password'; // Replace with user input
+$query = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
+
+// Execute query
+if (mysqli_query($sql, $query)) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . mysqli_error($sql);
+}
+
+// Close connection
+mysqli_close($sql);
 ?>

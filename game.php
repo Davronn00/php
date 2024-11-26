@@ -1,8 +1,7 @@
 
 <?php
+
 session_start();
-?>
-<?php
 
 if (!isset($_SESSION['number']) || isset($_POST['new_game'])) {
     $_SESSION['number'] = str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);

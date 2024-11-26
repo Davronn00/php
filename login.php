@@ -1,5 +1,6 @@
 <?php
-session_start();
+
+include("database.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,27 +23,25 @@ session_start();
     
 
     if(isset($_POST["login"])){
-        include("database.php");
-        $username = $_POST["username"];
-        $password = $_POST["password"];
-        $hash = password_hash($password, PASSWORD_DEFAULT);
-
-        $sql = "INSERT INTO users (user, password)
-            VALUES ($username,$hash)";
+        
         if(!empty($_POST["username"] && 
-            !empty($_POST["password"]))){
+            !empty($_POST["password"])))
+        {
 
-        $_SESSION["username"]= $username;
-        $_SESSION["password"]= $password;
-
-        try{
+        $_SESSION["username"]= $_POST["username"];
+        $_SESSION["password"]= $$_POST["password"];
+        header("Location: game.php");
+            try{
+                $sql = "INSERT INTO users (user, password)
+                VALUES ({$_SESSION['username']},{$_SESSION['password']})";
             mysqli_query($conn, $sql);
-            echo"user is now registered";
-        }
-        catch(mysqli_sql_exception){
-            echo "couldn't register user";
-        }
-        header("Location: game.php"); 
+            echo "You're registered";
+                mysqli_query($conn, $sql);
+                echo"user is now registered";
+            }
+            catch(mysqli_sql_exception){
+                echo "couldn't register user";
+            }
         }
         else{
             echo "Username or password shouldn't be empty";
