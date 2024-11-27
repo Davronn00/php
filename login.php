@@ -1,52 +1,65 @@
 <?php
-
+session_start();
 include("database.php");
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) 
+{
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $stmt = $conn->prepare("SELECT id, password, 
+    is_admin FROM users WHERE username = ?");
+    if (!$stmt) {
+        die("Database query failed: " . $conn->error);
+    }
+    
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) 
+    {
+        $user = $result->fetch_assoc();
+        
+        // Check if password is correct
+        if (password_verify($password, $user['password'])) 
+        {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $username;
+            $_SESSION['is_admin'] = $user['is_admin'];
+            header("Location: game.php");
+            exit;
+        } 
+        else 
+        {
+            echo "<p>Incorrect password.</p>";
+        }
+    } 
+    else
+    {
+        isset($_POST["rgister"]);
+        header(header:"Location: create_user.php");
+         
+        
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
 </head>
 <body>
-    <form action="login.php" method = "post">
-        username:<br>
-    <input type = "text" name= "username" placeholder = "Your neptun ID"><br>
-        password:<br>
-    <input type = "password" name="password" ><br>
-    <input type = "submit" name="login" value="login"><br>
+    <form action="login.php" method="post">
+        <label for="username">Username:</label><br>
+        <input type="text" name="username" required><br>
+        <label for="password">Password:</label><br>
+        <input type="password" name="password" required><br>
+        <input type="submit" name="login" value="Login"><br>
+        <input type="submit" name="rgister" value="go_Register"><br>
     </form>
 </body>
 </html>
-<?php
-    
-
-    if(isset($_POST["login"])){
-        
-        if(!empty($_POST["username"] && 
-            !empty($_POST["password"])))
-        {
-
-        $_SESSION["username"]= $_POST["username"];
-        $_SESSION["password"]= $$_POST["password"];
-        header("Location: game.php");
-            try{
-                $sql = "INSERT INTO users (user, password)
-                VALUES ({$_SESSION['username']},{$_SESSION['password']})";
-            mysqli_query($conn, $sql);
-            echo "You're registered";
-                mysqli_query($conn, $sql);
-                echo"user is now registered";
-            }
-            catch(mysqli_sql_exception){
-                echo "couldn't register user";
-            }
-        }
-        else{
-            echo "Username or password shouldn't be empty";
-        
-        }
-    }
-
-?>

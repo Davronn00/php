@@ -2,6 +2,7 @@
 <?php
 
 session_start();
+include("database.php");
 
 if (!isset($_SESSION['number']) || isset($_POST['new_game'])) {
     $_SESSION['number'] = str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);
@@ -54,15 +55,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guess'])) {
         <label for="guess">Enter your guess <br> (It should be 5 digits): </label> <input type= "submit" name = "logout" value = "logout"><br><br>
         <input type="number" name="guess" id="guess" maxlength="5" oninput="this.value = this.value.slice(0, 5)">
         <button type="submit">Guess the number</button><br><br>
-        <button type="submit" name="new_game" href="game.php?number=new">Clean and start the new game</button>
-        
+        <button type="submit" name="new_game" href="game.php?number=new">Start the new game</button>
+        <button type = "submit" name= "Post_news">Click here to post news</button>
     </form><br>
     <?php
     if(isset($_POST["logout"])){
         header("Location: login.php");
     }
     ?>
-   
+    <?php
+    if(isset($_POST["Post_news"])){
+        header("Location: news.php");
+    }
+    ?>
     
 
     <div class="feedback">
