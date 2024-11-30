@@ -2,13 +2,11 @@
 session_start();
 include("database.php");
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) 
-{
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT id, password, 
-    is_admin FROM users WHERE username = ?");
+    $stmt = $conn->prepare("SELECT id, password, is_admin FROM users WHERE username = ?");
     if (!$stmt) {
         die("Database query failed: " . $conn->error);
     }
@@ -17,33 +15,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login']))
     $stmt->execute();
     $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) 
-    {
+    if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
         
         // Check if password is correct
-        if (password_verify($password, $user['password'])) 
-        {
+        if (password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $username;
             $_SESSION['is_admin'] = $user['is_admin'];
             header("Location: game.php");
             exit;
-        } 
-        else 
-        {
+        } else {
             echo "<p>Incorrect password.</p>";
         }
-    } 
-    else
-    {
-        isset($_POST["rgister"]);
-        header(header:"Location: create_user.php");
-         
-        
+    } else {
+        echo "<p>User not found. Please register first.</p>";
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login']))
         <label for="password">Password:</label><br>
         <input type="password" name="password" required><br>
         <input type="submit" name="login" value="Login"><br>
-        <input type="submit" name="rgister" value="go_Register"><br>
+        <a href="create_user.php"> Register if you don't have an account</a><br>
     </form>
 </body>
 </html>

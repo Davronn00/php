@@ -50,13 +50,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guess'])) {
     <title>5-digit guessing game</title>
 </head>
 <body>
-    <h1><br>5-digit guessing game</h1>
+    
     <form method="post">
-        <label for="guess">Enter your guess <br> (It should be 5 digits): </label> <input type= "submit" name = "logout" value = "logout"><br><br>
+    <h1>5-digit guessing game</h1>
+        <label for="guess">Enter your guess <br> (It should be 5 digits): </label>
+        <button type = "submit" name= "Post_news">Click here to post news</button>   <input type= "submit" name = "Logout" value = "logout"><br><br>
         <input type="number" name="guess" id="guess" maxlength="5" oninput="this.value = this.value.slice(0, 5)">
         <button type="submit">Guess the number</button><br><br>
-        <button type="submit" name="new_game" href="game.php?number=new">Start the new game</button>
-        <button type = "submit" name= "Post_news">Click here to post news</button>
+        
     </form><br>
     <?php
     if(isset($_POST["logout"])){
@@ -71,6 +72,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guess'])) {
     
 
     <div class="feedback">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<form method="post">
+    <h1>5-digit guessing game</h1>
+        <button type="submit" name="new_game" href="game.php?number=new">Start the new game</button>
+        
+    </form><br>
+</body>
+</html>
         <?php
         if (isset($feedback)) {
             foreach ($feedback as $message) {
@@ -82,6 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guess'])) {
     
     <div class="guesses">
         <h3>Your Guesses</h3>
+
         <ul>
             <?php
             if (isset($_SESSION['guesses'])) {

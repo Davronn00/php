@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 include("database.php");
 
 if (!isset($_SESSION['user_id'])) {
@@ -38,6 +39,9 @@ while ($news = $news_result->fetch_assoc()) {
     }
     echo "<hr>";
 }
+if(isset($_POST["Logout"])){
+    header("Location: game.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,13 +51,26 @@ while ($news = $news_result->fetch_assoc()) {
     <title>NEWS</title>
 </head>
 <body>
-<form method="post">
-    <label for="title">Title:</label>
-    <input type="text" name="title" required>
-    <label for="content">Content:</label>
-    <textarea name="content" required></textarea>
-    <input type="submit" name="create_news" value="Create News">
+<form method="post"><br>
+    <label for="title">Title:</label><br>
+    <input type="text" name="title" required ><br>
+    <label for="content">Content:</label><br>
+    <textarea name="content" required></textarea><br>
+    <input type="submit" name="create_news" value="Create News"><br>
 </form>
 
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<form method="post"><br>
+    <input type="submit" name="Logout" value="Continue the game">
+</form>
 </body>
 </html>
